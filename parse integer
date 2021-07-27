@@ -1,0 +1,59 @@
+question_link:
+https://www.codewars.com/kata/525c7c5ab6aecef16e0001a5
+
+def parse_int(string):
+
+    value = {"on":1,"tw":2,"th":3,"fo":4,"fi":5,"si":6,"se":7,"ei":8,"ni":9,"te":10,"el":11,"tl":12}
+
+    #to remove and
+    num = string.split()
+    try:
+        for i in range(2):
+            num.remove("and")
+    except:
+        pass
+
+    s = "".join(num)
+
+    #for twelve
+    if "twelve" in s:
+        s = s.replace("twelve","tl")
+
+    dic = {}
+
+    #assigning values
+    # if "billion" in s:
+    #     dic["billion"] = parse_int(s.split("million")[0])*1000000000
+    #     s = s.split("billion")[1]
+
+    if "million" in s:
+        dic["million"] = parse_int(s.split("million")[0])*1000000
+        s = s.split("million")[1]
+
+    if "thousand" in s:
+        dic["thousand"]= parse_int(s.split("thousand")[0])*1000
+        s = s.split("thousand")[1]
+
+    if "hundred" in s:
+        dic["hundred"] = value[s.split("hundred")[0][:2]]*100
+        s = s.split("hundred")[1]
+
+    if "ty-" in s:
+        dic["ty-"] = value[s.split("ty-")[0][:2]]*10
+        s = s.split("ty-")[1]
+
+    if "ty" in s:
+        dic["ty"] = value[s.split("ty")[0][:2]]*10
+        s = s.split("ty")[1]
+
+    if "teen" in s:
+        dic["teen"] = value[s.split("teen")[0][:2]]+10
+        s = s.split("teen")[1]
+    
+    #for last integer
+    try:
+        dic["last"] = value[s[:2]]
+    except:
+        pass
+
+    return sum([i for i in dic.values()])
