@@ -1,0 +1,29 @@
+question_link:
+https://www.codewars.com/kata/521c2db8ddc89b9b7a0000c1
+
+def snail(y):
+    l = []
+    b = y[:]
+    for i in range(len(y)//2):
+        #up
+        l += y[0]
+        #rightside
+        for a in range(1, len(y) - 1):
+            l.append(y[a][-1])
+            del (y[a][-1])
+        #bottom
+        l += y[-1][::-1]
+        y.pop(0)
+        y.pop(-1)
+        #leftside
+        #when len(y) is odd this will not this will not run
+        for x in range(len(y)):
+            l.append(y[len(y)-1-x][0])
+            del(y[len(y)-1-x][0])
+        print(y)
+    if len(b)%2==0:
+        print(l)
+    #to include middle part
+    else:
+        l+=b[len(b)//2]
+        print(l)
